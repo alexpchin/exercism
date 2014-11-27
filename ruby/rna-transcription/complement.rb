@@ -1,15 +1,11 @@
 class Complement
 
   def self.of_dna(x)
-    str = ""
-    x.split(//).each { |y| str += COMPLEMENTS[y] }
-    str
+    x.split(//).map { |y| COMPLEMENTS[y] }.reduce(:+)
   end
 
   def self.of_rna(x)
-    str = ""
-    x.split(//).map { |y| str += COMPLEMENTS.key(y) }
-    str
+    x.split(//).map { |y| COMPLEMENTS.key(y) }.reduce(:+)
   end
 
   private
