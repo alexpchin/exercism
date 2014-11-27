@@ -1,12 +1,5 @@
 class Hamming
-  def self.compute(dna1, dna2)
-    to_a(dna1).zip(to_a(dna2)).map do |comparison|
-      comparison.include?(nil) ? nil : comparison.uniq.count - 1
-    end.compact.inject(:+)
+  def self.compute(a, b)
+    [a.size, b.size].min.times.count { |i| a[i] != b[i] }
   end
-
-  def self.to_a(string)
-    string.split(//)
-  end
-
 end
