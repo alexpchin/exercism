@@ -12,6 +12,6 @@ class Robot
 
   private
   LETTERS = ('A'...'Z').to_a + ('a'...'z').to_a
-  NUMBERS = (0...9).to_a
+  NUMBERS = (1...9).to_a
 
 end
