@@ -1,9 +1,9 @@
 class Fixnum
 
   def to_roman
-    roman_numeral = ""
     arabic_numeral = self
-    NUMERALS.each_pair do |arabic, roman|
+    roman_numeral = ""
+    ARABIC_TO_ROMAN.each do |arabic, roman|
       while arabic_numeral >= arabic
         arabic_numeral -= arabic
         roman_numeral << roman
@@ -13,7 +13,7 @@ class Fixnum
   end
 
   private
-  NUMERALS = {
+  ARABIC_TO_ROMAN = {
     1000 => "M",
     900 => "CM",
     500 => "D",
