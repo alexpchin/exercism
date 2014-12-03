@@ -79,23 +79,16 @@ class Complement
   #   self.of_dna = 
   # end
 
-  # define_singleton_method __METHOD__ do ||
-  # [ ? :of_rna, :of_dna]
+  [:of_rna, :of_dna].each do |v|
+    define_singleton_method v.to_sym do |x|
+        @x = x
+        a_method  -> (y) { v == :of_rna ? COMPLEMENTS.send(:key, y) : COMPLEMENTS.send(:fetch, y.to_sym)}
+      end
+  end
 
-  # [:of_rna, :of_dna].each do |v|
-  #   define_singleton_method v.to_sym do |x|
-  #       @x = x
-  #       key = v == :of_rna  ? y : y.to_sym
-        
-  #       a_method(lambda)
-  #     end
-  # end
-
-  # def self.a_method(da_block, key)
-  #   lambda = -> (y) { v == :of_rna ? COMPLEMENTS.send(:key, y) : COMPLEMENTS.send(:fetch, y.to_sym)}
-  #   value = key.class == String ? COMPLEMENTS.send(:key, y) : COMPLEMENTS.send(:fetch, y.to_sym)
-  #   @x.split(//).map { |y| da_block.call(value).to_s }.reduce(:+)
-  # end
+  def self.a_method(da_block)
+    @x.split(//).map { |y| da_block.call(y).to_s }.reduce(:+)
+  end
   
   private
 
