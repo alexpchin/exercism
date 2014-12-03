@@ -12,7 +12,7 @@ class Prime
     primes[-1]
   end
 
-  # # Recursive soulution (Stack level too deep)
+  # # Recursive soulution (Stack level too deep, comments welcomed!)
   # def self.nth(n)
   #   raise ArgumentError if n < 1
   #   @primes, @n = [], n
