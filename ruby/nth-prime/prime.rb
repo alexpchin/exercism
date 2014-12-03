@@ -2,15 +2,23 @@ class Prime
 
   def self.nth(n)
     raise ArgumentError if n < 1
-    @primes, @n = [], n
-    primes(2)
+    @primes, @n, @i = [], n, 2
+
+    # Recursive soulution
+    # recursive(2)
+
+    # Non-recursive solution
+    while @primes.length != @n
+      @primes << @i if is_prime?(@i)
+      @i += 1
+    end
+    @primes[-1]
   end
 
-  # Is this number a prime? If it is, add it to the collection of primes
-  def self.primes(i)
+  def self.recursive(i)
     return @primes[-1] if @primes.length == @n
     @primes << i if is_prime?(i)
-    primes(i+1)
+    recursive(i+1)
   end
 
   def self.is_prime?(n)
