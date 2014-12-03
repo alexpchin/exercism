@@ -74,15 +74,13 @@ end
 
 class Complement
 
-  # define_singleton_method initialize do || 
-  #   self.of_rna = 
-  #   self.of_dna = 
-  # end
-
   [:of_rna, :of_dna].each do |v|
     define_singleton_method v.to_sym do |x|
         @x = x
-        a_method  -> (y) { v == :of_rna ? COMPLEMENTS.send(:key, y) : COMPLEMENTS.send(:fetch, y.to_sym)}
+        # value = Proc.new{ |y| v == :of_rna ? COMPLEMENTS.send(:key, y) : COMPLEMENTS.send(:fetch, y.to_sym)}
+        # a_method(value)
+
+        a_method(Proc.new{ |y| v == :of_rna ? COMPLEMENTS.send(:key, y) : COMPLEMENTS.send(:fetch, y.to_sym)})
       end
   end
 
