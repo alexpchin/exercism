@@ -1,9 +1,9 @@
 class Grains
 
-  attr_accessor :total
+  attr_reader :total
 
   def initialize
-    @total = 2**(NUMBER_OF_SQUARES-1)
+    @total = 2**NUMBER_OF_SQUARES - 1
   end
 
   def square(n)
