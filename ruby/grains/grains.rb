@@ -3,20 +3,14 @@ class Grains
   attr_accessor :total
 
   def initialize
-    # @one = 1
-    # @two = 2
+    @total = 2**(NUMBER_OF_SQUARES-1)
   end
 
   def square(n)
-    SQUARES_TO_GRAINS["w#{n}"]
+    2**(n-1)
   end
 
-  # def total()
-  # end
-
   private
-  # SQUARES             = (1...64).to_a
-  # GRAINS              = SQUARES.map { |g| g ** (g**2)  }
-  # SQUARES_TO_GRAINS   = SQUARES.zip GRAINS
+  NUMBER_OF_SQUARES = 64
 
 end
