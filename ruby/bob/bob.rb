@@ -2,11 +2,13 @@ class Bob
 
   def hey(phrase)
     @phrase = phrase.gsub(/[0-9\t ]/, '')
-    return "Fine. Be that way!" if nothing?
-    return "Whoa, chill out!" if yell?
-    return "Sure." if question?
-    "Whatever."
+    return RESPONSES[:nothing] if nothing?
+    return RESPONSES[:yell] if yell?
+    return RESPONSES[:question] if question?
+    RESPONSES[:other]
   end
+
+  private
 
   def nothing?
     @phrase.nil? || @phrase.empty?
@@ -23,5 +25,12 @@ class Bob
   def letters
     @phrase[/[a-zA-Z]+/]
   end
+
+  RESPONSES = {
+    nothing: "Fine. Be that way!",
+    yell: "Whoa, chill out!",
+    question: "Sure.",
+    other: "Whatever."
+  }
 
 end
