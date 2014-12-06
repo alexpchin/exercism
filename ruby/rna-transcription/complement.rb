@@ -1,8 +1,8 @@
 class Complement
 
-  [:of_rna, :of_dna].each do |method_name|
-    define_singleton_method method_name do |x|
-      x.chars.map { |y| Complement.const_get(method_name.to_s.upcase)[y] }.reduce(:+)
+  [:of_rna, :of_dna].each do |m|
+    define_singleton_method m do |x|
+      x.chars.map { |y| Complement.const_get(m.to_s.upcase)[y] }.reduce(:+)
     end
   end
 
