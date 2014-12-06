@@ -1,23 +1,38 @@
 class Complement
 
-  def self.of_dna(x)
-    x.split(//).map { |y| COMPLEMENTS[y] }.reduce(:+)
-  end
-
-  def self.of_rna(x)
-    x.split(//).map { |y| COMPLEMENTS.key(y) }.reduce(:+)
+  [:of_rna, :of_dna].each do |v|
+    define_singleton_method v.to_sym do |x|
+      x.chars.map { |y| COMPLEMENTS[v][y] }.reduce(:+)
+    end
   end
 
   private
 
   COMPLEMENTS = {
-    "G" => "C",
-    "C" => "G",
-    "T" => "A",
-    "A" => "U"
+    of_dna: {
+      "G" => "C",
+      "C" => "G",
+      "T" => "A",
+      "A" => "U"
+    },
+    of_rna: {
+      "C" => "G",
+      "G" => "C",
+      "A" => "T",
+      "U" => "A"
+    },
   }
 
 end
+
+def self.of_dna(x)
+  x.chars.map { |y| COMPLEMENTS[y] }.reduce(:+)
+end
+
+def self.of_rna(x)
+  x.chars.map { |y| COMPLEMENTS.invert[y] }.reduce(:+)
+end
+
 
 # class Complement
 
