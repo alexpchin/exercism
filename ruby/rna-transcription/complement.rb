@@ -1,11 +1,15 @@
 class Complement
 
   def self.of_dna(dna)
-    dna.tr('ACGT', 'UGCA')
+    dna.tr(DNA, RNA)
   end
 
   def self.of_rna(rna)
-    rna.tr('UGCA', 'ACGT')
+    rna.tr(RNA, DNA)
   end
+
+  private
+  RNA = "UGCA"
+  DNA = "ACGT"
 
 end
