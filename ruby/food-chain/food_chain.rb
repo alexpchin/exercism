@@ -1,32 +1,61 @@
 class FoodChainSong
 
+  attr_reader :song
+
+  def initialize
+    @song = String.new
+  end
+
+  def sing
+    verses(1, 8)
+  end
+
+  def verses(x, y)
+puts "#{(x..y).to_a}\n\n"
+    verses = (x..y).to_a.map { |n| verse(n) }.join("hello")
+puts verses.inspect
+  verses
+  end
+
   def verse(n)
-    (0...n).to_a.map { |i| 
-      puts i
-      know(i) 
-    }.reduce(:+)
+    n -= 1
+    @song << know(n)
+    @song << SEPERATOR if n < 8
+    swallow(n)
+    @song << die(n)
+
+puts "VERSE #{n}"
+puts @song.inspect
+puts "\n"
+
+    @song
   end
 
   def know(n)
-puts n
-puts ANIMALS.keys[n].to_s
     [
       "I know an old lady who swallowed a #{ANIMALS.keys[n].to_s}.",
       ANIMALS.values[n]
-    ].compact.join("\n")
+    ].compact.join(SEPERATOR)
   end
 
-  # def die(animal=nil)
-  #   return "" if animal.nil?
-  #   "I don't know why she swallowed the #{animal}. Perhaps she'll die."
-  # end
+  def swallow(n)
+    return if n == 0 || n == 7
+    @song << "She swallowed the #{ANIMALS.keys[n].to_s} to catch the #{ANIMALS.keys[n-1].to_s}"
+    @song << " that wriggled and jiggled and tickled inside her" if ANIMALS.keys[n-1].to_s == "spider"
+    @song << "." 
+    @song << SEPERATOR
+    swallow(n-1)
+  end
 
-  # def swallow(hunter, prey)
-  #   "She swallowed the #{hunter}" to catch the #{prey}."
-  # end
+  def die(n)
+    return if n > 7
+    "I don't know why she swallowed the #{ANIMALS.keys[0].to_s}. Perhaps she'll die.#{SEPERATOR}"
+  end
+
+  SEPERATOR = "\n"
 
   ANIMALS = {
-    fly: "Perhaps she'll die.", 
+    fly: nil, 
     spider: "It wriggled and jiggled and tickled inside her.", 
     bird: "How absurd to swallow a bird!",
     cat: "Imagine that, to swallow a cat!",
@@ -35,124 +64,5 @@ puts ANIMALS.keys[n].to_s
     cow: "I don't know how she swallowed a cow!",
     horse: "She's dead, of course!"
   }
-
-  # I know an old lady who swallowed a fly.
-  # I don't know why she swallowed the fly. Perhaps she'll die.
-
-  # I know an old lady who swallowed a spider.
-  # It wriggled and jiggled and tickled inside her.
-  # She swallowed the spider to catch the fly.
-  # I don't know why she swallowed the fly. Perhaps she'll die.
-
-  # I know an old lady who swallowed a bird.
-  # How absurd to swallow a bird!
-  # She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
-  # She swallowed the spider to catch the fly.
-  # I don't know why she swallowed the fly. Perhaps she'll die.
-
-  # I know an old lady who swallowed a cat.
-  # Imagine that, to swallow a cat!
-  # She swallowed the cat to catch the bird.
-  # She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
-  # She swallowed the spider to catch the fly.
-  # I don't know why she swallowed the fly. Perhaps she'll die.
-
-  # I know an old lady who swallowed a dog.
-  # What a hog, to swallow a dog!
-  # She swallowed the dog to catch the cat.
-  # She swallowed the cat to catch the bird.
-  # She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
-  # She swallowed the spider to catch the fly.
-  # I don't know why she swallowed the fly. Perhaps she'll die.
-
-  # I know an old lady who swallowed a goat.
-  # Just opened her throat and swallowed a goat!
-  # She swallowed the goat to catch the dog.
-  # She swallowed the dog to catch the cat.
-  # She swallowed the cat to catch the bird.
-  # She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
-  # She swallowed the spider to catch the fly.
-  # I don't know why she swallowed the fly. Perhaps she'll die.
-
-  # I know an old lady who swallowed a cow.
-  # I don't know how she swallowed a cow!
-  # She swallowed the cow to catch the goat.
-  # She swallowed the goat to catch the dog.
-  # She swallowed the dog to catch the cat.
-  # She swallowed the cat to catch the bird.
-  # She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
-  # She swallowed the spider to catch the fly.
-  # I don't know why she swallowed the fly. Perhaps she'll die.
-
-  # I know an old lady who swallowed a horse.
-  # She's dead, of course!
-
-
-
-
-
-  # SEPERATOR = "\n"
-
-  # SONG = {
-  #   v1: [
-  #     know("fly"),
-  #     die("fly")
-  #   ],
-  #   v2: [
-  #     know("spider"),
-  #     swallow("spider", "fly"),
-  #     die("fly")
-  #   ],
-  #   v3: [
-  #     know("bird"),
-  #     "How absurd to swallow a bird!",
-  #     "She swallowed the bird to catch the spider 
-  #     that wriggled and jiggled and tickled inside her.",
-  #     swallow("spider", "fly"),
-  #     die("fly")
-  #   ]
-  #   v4: [
-  #     know("cat"),
-  #     "Imagine that, to swallow a cat!",
-  #     swallow("cat", "bird"),
-  #     "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.",
-  #     swallow("spider", "fly"),
-  #     die("fly")
-  #   ]
-  #   v5: [
-  #     know("dog"),
-  #     "What a hog, to swallow a dog!",
-  #     swallow("dog", "cat"),
-  #     swallow("cat", "bird"),
-  #     "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.",
-  #     swallow("spider", "fly"),
-  #     die("fly")
-  #   ]
-  #   v6: [
-  #     know("goat"),
-  #     "Just opened her throat and swallowed a goat!",
-  #     swallow("goat", "dog"),
-  #     swallow("dog", "cat"),
-  #     swallow("cat", "bird"),
-  #     "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.",
-  #     swallow("spider", "fly"),
-  #     die("fly")
-  #   ]
-  #   v7: [
-  #     know("cow"),
-  #     "I don't know how she swallowed a cow!",
-  #     swallow("cow", "goat"),
-  #     swallow("goat", "dog"),
-  #     swallow("dog", "cat"),
-  #     swallow("cat", "bird"),
-  #     "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.",
-  #     swallow("spider", "fly"),
-  #     die("fly")
-  #   ]
-  #   v8: [
-  #     know("horse"),
-  #     die
-  #   ]
-  # }
 
 end

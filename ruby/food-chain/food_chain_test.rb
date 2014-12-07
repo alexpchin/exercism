@@ -12,6 +12,7 @@ class FoodChainTest < MiniTest::Unit::TestCase
   end
 
   def test_fly
+    skip
     expected = "I know an old lady who swallowed a fly.\nI don't know why she swallowed the fly. Perhaps she'll die.\n"
     assert_equal expected, song.verse(1)
   end
@@ -96,7 +97,6 @@ class FoodChainTest < MiniTest::Unit::TestCase
   end
 
   def test_multiple_verses
-    skip
     expected = ""
     expected << "I know an old lady who swallowed a fly.\nI don't know why she swallowed the fly. Perhaps she'll die.\n\n"
     expected << "I know an old lady who swallowed a spider.\nIt wriggled and jiggled and tickled inside her.\n" +
