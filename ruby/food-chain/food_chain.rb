@@ -12,19 +12,13 @@ class FoodChainSong
   end
 
   def verse(x, y=x, song="")
-    
+
     ANIMALS[(x-1)..(y-1)].each do |animal| 
       
       index = ANIMALS.index(animal)
       song << "I know an old lady who swallowed a #{animal.to_s}.#{SEPERATOR}"
-
-      phrase = DESCRIPTIONS[index]
-      case phrase[-1]
-      when "S" then phrase[-1] = "swallowed a #{animal.to_s}!"
-      when "T" then phrase[-1] = "to swallow a #{animal.to_s}!"
-      end
-      song << phrase
-      song << SEPERATOR if index > 0
+      song << DESCRIPTIONS[index]
+      song << SEPERATOR if animal != :fly
       break if animal == :horse
 
       index.downto(1) do |i|
@@ -46,11 +40,11 @@ class FoodChainSong
   ANIMALS_DESCRIPTIONS = {
     fly: "I don't know why she swallowed the fly.", 
     spider: "It wriggled and jiggled and tickled inside her.", 
-    bird: "How absurd T",
-    cat: "Imagine that, T",
-    dog: "What a hog, T",
-    goat: "Just opened her throat and S",
-    cow: "I don't know how she S",
+    bird: "How absurd to swallow a bird!",
+    cat: "Imagine that, to swallow a cat!",
+    dog: "What a hog, to swallow a dog!",
+    goat: "Just opened her throat and swallowed a goat!",
+    cow: "I don't know how she swallowed a cow!",
     horse: "She's dead, of course!"
   }
 
