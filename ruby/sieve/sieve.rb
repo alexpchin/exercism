@@ -8,11 +8,11 @@ class Sieve
   end
 
   def sieve_of_eratosthenes(n)
-    @array.map { |x| x if is_prime?(x) }.compact
+    @array -= @array.map { |x| multiples(x, n) }.flatten.uniq
   end
 
-  def is_prime?(n)
-    !(2..Math.sqrt(n)).to_a.any? { |d| n%d == 0 }
+  def multiples(x, n)
+    2.upto(n).map { |i| (x*i > n) ? nil : (x*i) }.compact
   end
 
 end
