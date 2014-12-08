@@ -12,8 +12,8 @@ class FoodChainSong
   end
 
   def verse(x, y=x, song="")
-
-    Hash[Array(ANIMALS_DESCRIPTIONS)[(x-1)..(y-1)]].each_pair do |animal, phrase|
+    
+    ANIMALS[(x-1)..(y-1)].each do |animal| 
       
       index = ANIMALS.index(animal)
       song << "I know an old lady who swallowed a #{animal.to_s}.#{SEPERATOR}"
