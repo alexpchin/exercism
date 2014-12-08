@@ -12,13 +12,15 @@ class FoodChainSong
   end
 
   def verse(x, y=x, song="")
+
     Hash[Array(ANIMALS_DESCRIPTIONS)[(x-1)..(y-1)]].each_pair do |animal, phrase|
+      
       index = ANIMALS.index(animal)
-      song << "I know an old lady who swallowed a #{animal.to_s}.\n"
+      song << "I know an old lady who swallowed a #{animal.to_s}.#{SEPERATOR}"
 
       phrase = DESCRIPTIONS[index]
       case phrase[-1]
-      when "S" then phrase[-1] = "she swallowed a #{animal.to_s}."
+      when "S" then phrase[-1] = "swallowed a #{animal.to_s}!"
       when "T" then phrase[-1] = "to swallow a #{animal.to_s}!"
       end
       song << phrase
@@ -26,8 +28,7 @@ class FoodChainSong
       break if animal == :horse
 
       index.downto(1) do |i|
-        song << "She swallowed the #{ANIMALS[i]} to catch the #{ANIMALS[i-1]}."
-        song << SEPERATOR
+        song << "She swallowed the #{ANIMALS[i]} to catch the #{ANIMALS[i-1]}.#{SEPERATOR}"
         case ANIMALS[i-1]
         when :spider then song[-2..-1] = " that wriggled and jiggled and tickled inside her.#{SEPERATOR}"
         when :fly then song << DESCRIPTIONS[i-1]
@@ -48,8 +49,8 @@ class FoodChainSong
     bird: "How absurd T",
     cat: "Imagine that, T",
     dog: "What a hog, T",
-    goat: "Just opened her throat and swallowed a goat!",
-    cow: "I don't know how she swallowed a cow!",
+    goat: "Just opened her throat and S",
+    cow: "I don't know how she S",
     horse: "She's dead, of course!"
   }
 
