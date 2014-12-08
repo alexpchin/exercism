@@ -2,83 +2,53 @@ require "pry"
 
 class FoodChainSong
 
-  attr_reader :song
-
-  def verse
-    ANIMALS.each_with_index do |animal, index|
-      puts "There was an old lady who swallowed a #{animal}."
-     
-      unique_phrase = ANIMALS[animal.to_sym]
-      case unique_phrase[-1]
-      when "S" then unique_phrase[-1] = "she swallowed a #{animal}."
-      when "T" then unique_phrase[-1] = "to swallow a #{animal}!"
-      end
-      puts unique_phrase
-      break if animal == :horse
-     
-      index.downto(1) do |i|
-        puts "She swallowed the #{animals[i]} to catch the #{animals[i-1]}."
-        case animals[i-1]
-        when :spider, :fly then puts descriptions[animals[i-1]]
-        end
-      end
-     
-      print "Perhaps she'll die.\n\n"
-    end
+  def sing
+    verses(1, 8)
   end
 
-#   def initialize
-#     # @song = String.new
-#   end
+  def verses(x, y)
+    (x..y).to_a.map { |n| verse(n) }.join(SEPERATOR)
+  end
 
-#   def sing
-#     verses(1, 8)
-#   end
+  def verse(x, y=x)
+    x -= 1
+    y -= 1
+    song = ""
 
-#   def verses(x, y)
-#     (x..y).to_a.map { |n| verse(n) }.join(SEPERATOR)
-#   end
+    Hash[Array(ANIMALS_DESCRIPTIONS)[x..y]].each_pair do |animal, phrase|
+      index = ANIMALS.index(animal)
+      song << "I know an old lady who swallowed a #{animal.to_s}.\n"
 
-#   def verse(n)
-#     n -= 1
-#     song = ""
-#     song << know(n)
-#     song << SEPERATOR  if n > 0
-#     song << unique(n)  if n > 0
-#     song << SEPERATOR  if n < 7
-# puts "**#{swallow(n, song).inspect}"
-#     song << swallow(n, song) if n > 0
-#     song << die(n)     if n < 7
-#     song << SEPERATOR
-#     song
-#   end
+      phrase = DESCRIPTIONS[index]
+      case phrase[-1]
+      when "S" then phrase[-1] = "she swallowed a #{animal.to_s}."
+      when "T" then phrase[-1] = "to swallow a #{animal.to_s}!"
+      end
+      song << phrase
+      song << SEPERATOR if index > 0
+      break if animal == :horse
 
-#   def know(n)
-#     "I know an old lady who swallowed a #{ANIMALS.keys[n].to_s}."
-#   end
+      index.downto(1) do |i|
+        song << "She swallowed the #{ANIMALS[i]} to catch the #{ANIMALS[i-1]}."
+        song << SEPERATOR
+        case ANIMALS[i-1]
+        when :spider then song[-2..-1] = " that wriggled and jiggled and tickled inside her.#{SEPERATOR}"
+        when :fly then song << DESCRIPTIONS[i-1]
+        end
+      end
 
-#   def unique(n)
-#     ANIMALS.values[n]
-#   end
+      song << " Perhaps she'll die.#{SEPERATOR}"
+    end
 
-#   def swallow(n, song)
-#     return "" if n == 0 || n == 7
-#     song << "She swallowed the #{ANIMALS.keys[n].to_s} to catch the #{ANIMALS.keys[n-1].to_s}"
-#     song << " that wriggled and jiggled and tickled inside her" if (n-1) == 1
-#     song << "." 
-#     song << SEPERATOR
-#     swallow(n-1, song)
-#   end
-
-#   def die(n)
-#     "I don't know why she swallowed the #{ANIMALS.keys[0].to_s}. Perhaps she'll die."
-#   end
+puts "#{song.inspect}"
+    song
+  end
 
   private
   SEPERATOR = "\n"
 
-  ANIMALS = {
-    fly: nil, 
+  ANIMALS_DESCRIPTIONS = {
+    fly: "I don't know why she swallowed the fly.", 
     spider: "It wriggled and jiggled and tickled inside her.", 
     bird: "How absurd T",
     cat: "Imagine that, T",
@@ -87,5 +57,8 @@ class FoodChainSong
     cow: "I don't know how S",
     horse: "She's dead, of course!"
   }
+
+  ANIMALS = ANIMALS_DESCRIPTIONS.keys
+  DESCRIPTIONS = ANIMALS_DESCRIPTIONS.values
 
 end
