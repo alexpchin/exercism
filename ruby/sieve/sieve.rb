@@ -3,7 +3,6 @@ class Sieve
   attr_reader :primes
 
   def initialize(n)
-    @range  = (2..n)
     @array  = (2..n).to_a
     @primes = sieve_of_eratosthenes(n)
   end
