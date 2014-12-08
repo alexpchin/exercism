@@ -1,4 +1,5 @@
-require "pry"
+# Personally, I think if this test is meant to play with recursion, the song
+# is not consistent enough... "swallowed a cow!" &" that wriggled and jiggled"
 
 class FoodChainSong
 
@@ -10,12 +11,8 @@ class FoodChainSong
     verse(x, y)
   end
 
-  def verse(x, y=x)
-    x -= 1
-    y -= 1
-    song = ""
-
-    Hash[Array(ANIMALS_DESCRIPTIONS)[x..y]].each_pair do |animal, phrase|
+  def verse(x, y=x, song="")
+    Hash[Array(ANIMALS_DESCRIPTIONS)[(x-1)..(y-1)]].each_pair do |animal, phrase|
       index = ANIMALS.index(animal)
       song << "I know an old lady who swallowed a #{animal.to_s}.\n"
 
