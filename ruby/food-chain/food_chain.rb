@@ -7,7 +7,7 @@ class FoodChainSong
   end
 
   def verses(x, y)
-    (x..y).to_a.map { |n| verse(n) }.join(SEPERATOR)
+    verse(x, y)
   end
 
   def verse(x, y=x)
@@ -38,13 +38,11 @@ class FoodChainSong
       end
 
       song << " Perhaps she'll die.#{SEPERATOR}"
+      song << SEPERATOR if x != y
     end
-
-puts "#{song.inspect}"
     song
   end
 
-  private
   SEPERATOR = "\n"
 
   ANIMALS_DESCRIPTIONS = {
@@ -54,11 +52,11 @@ puts "#{song.inspect}"
     cat: "Imagine that, T",
     dog: "What a hog, T",
     goat: "Just opened her throat and swallowed a goat!",
-    cow: "I don't know how S",
+    cow: "I don't know how she swallowed a cow!",
     horse: "She's dead, of course!"
   }
 
-  ANIMALS = ANIMALS_DESCRIPTIONS.keys
-  DESCRIPTIONS = ANIMALS_DESCRIPTIONS.values
+  ANIMALS       = ANIMALS_DESCRIPTIONS.keys
+  DESCRIPTIONS  = ANIMALS_DESCRIPTIONS.values
 
 end
