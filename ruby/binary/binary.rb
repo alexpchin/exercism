@@ -9,7 +9,7 @@ class Binary
   def convert(binary)
     return 0 if has_incorrect_characters?(binary)
     conversion = binary.chars.map(&:to_i).zip(binary.length.downto(1).map { |i| 2**(i-1) })
-    conversion.map { |i| i[1] if i[0] != 0 }.compact.inject(:+)
+    conversion.map { |i| (i[0] != 0 ? i[1] : 0) }.reduce(:+)
   end
 
   private
