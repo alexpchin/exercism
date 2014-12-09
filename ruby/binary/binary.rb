@@ -8,6 +8,7 @@ class Binary
 
   def convert(binary)
     return 0 if has_incorrect_characters?(binary)
+    binary.to_i(2)
   end
 
   private
