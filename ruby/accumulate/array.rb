@@ -1,7 +1,9 @@
 class Array
 
   def accumulate
-    self
+    out = []
+    each { |e| out << yield(e) }
+    out
   end
 
 end
