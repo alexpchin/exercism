@@ -8,7 +8,6 @@ class Complement
     rna.tr(RNA, DNA)
   end
 
-  private
   RNA = "UGCA"
   DNA = "ACGT"
 
