@@ -7,7 +7,7 @@ class SumOfMultiples
   end
 
   def to(n)
-    SumOfMultiples.sum(n, @factors)
+    self.class.sum(n, @factors)
   end
 
   def self.to(n)
