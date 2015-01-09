@@ -3,13 +3,17 @@ class Series
   attr_reader :numbers
 
   def initialize(n)
-    @numbers = n.chars.map {|l| l.to_i}
+    @numbers = n.chars.map(&:to_i)
   end
 
   def slices(n)
     raise ArgumentError if n > numbers.length
-    numbers.each_with_index.map do |l, i| numbers[i...(i+n)] 
-      end.map { |x| x if x.length == n }.compact
+    numbers.each_with_index.map { |l, i| substring(i, n) }
+  end
+
+  private
+  def substring(i, n)
+    numbers[i...(i+n)] if numbers[i...(i+n)].length == n
   end
 
 end
