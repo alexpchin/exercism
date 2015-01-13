@@ -25,21 +25,13 @@ class PhoneNumber
   end
 
   def to_s
-    @string.each_char.each_with_index.map do |c, i| 
-      case i
-      when 0 then '(' + c
-      when 2 then c + ') '
-      when 5 then c + '-'
-      else
-        c
-      end
-    end.join
+    PHONE_FORMAT.zip(@string.chars).compact.join
   end
 
   private
   def extract_number(str)    
-    return ERROR_RETURN if str.each_char.reject { |c| c if c[/\d+/] }.join.match(/[a-zA-Z]/)
-    str = str.each_char.map { |c| c if c[/\d+/] }.compact.join
+    return ERROR_RETURN if str.chars.reject { |c| c if c[/\d+/] }.join.match(/[a-zA-Z]/)
+    str = str.chars.map { |c| c if c[/\d+/] }.compact.join
     
     if str.length == 10 
       str 
@@ -52,17 +44,6 @@ class PhoneNumber
   end
 
   ERROR_RETURN = '0000000000'
-
-  # str.gsub!('[.|-|(|)]', '')
-  # string = str.scan(/\d+/).join
-  # return '0000000000' if string != str
-    
-  # if string.length == 10 
-  #   string
-  # elsif string.length == 11 && string[0] == '1'
-  #   string[1..-1]
-  # else 
-  #   '0000000000'
-  # end
+  PHONE_FORMAT = ['(',nil,nil,') ',nil, nil, '-', nil, nil, nil, nil]
 
 end
