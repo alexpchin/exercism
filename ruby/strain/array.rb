@@ -5,7 +5,7 @@ class Array
   end
 
   def discard
-    self.map { |x| x if !yield(x) }.compact if block_given?
+    keep { |item| !yield(item) } if block_given?
   end
 
 end
