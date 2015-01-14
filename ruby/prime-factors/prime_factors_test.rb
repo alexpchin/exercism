@@ -39,6 +39,7 @@ class PrimeFactorsTest < MiniTest::Unit::TestCase
   end
 
   def test_901255
+    skip
     assert_equal [5, 17, 23, 461], PrimeFactors.for(901_255)
   end
 
