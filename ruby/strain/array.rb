@@ -1,4 +1,4 @@
-class Array
+module Strainable
 
   def keep
     self.map { |x| x if yield(x) }.compact if block_given?
@@ -8,4 +8,8 @@ class Array
     keep { |item| !yield(item) } if block_given?
   end
 
+end
+
+class Array  
+  include Strainable
 end
