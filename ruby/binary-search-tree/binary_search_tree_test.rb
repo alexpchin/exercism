@@ -62,14 +62,12 @@ class BstTest < MiniTest::Unit::TestCase
   end
 
   def test_iterating_over_larger_element
-    skip
     four = Bst.new 4
     four.insert 5
     assert_equal [4, 5], record_all_data(four)
   end
 
   def test_iterating_over_complex_tree
-    skip
     four = Bst.new 4
     four.insert 2
     four.insert 1
