@@ -5,14 +5,13 @@ class EmptyNode
     @data = data
   end
 
-  def include?(*)
-    false
-  end
-
   def insert(*)
     false
   end
-  alias_method :<<, :insert
+
+  # def include?(*)
+  #   false
+  # end
 
   # def inspect
   #   "{}"
@@ -38,9 +37,9 @@ class Bst
   alias_method :<<, :insert
 
   def each
-    left.select {|y| yield y } unless left.data == nil
+    left.each {|y| yield y } unless left.kind_of?(EmptyNode)
     yield data
-    right.select {|y| yield y } unless left.data == nil
+    right.each {|y| yield y } unless right.kind_of?(EmptyNode)
   end
 
   # def include?(v)
