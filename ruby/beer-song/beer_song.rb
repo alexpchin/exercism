@@ -1,63 +1,49 @@
 class BeerSong
 
   def verse(n)
-    SONG[n]
-  end
-
-  def verses(upper, lower)
-    (upper).downto(lower).map { |n| "#{verse(n)}\n" }.join
-  end
-
-  def sing 
-    verses(TOTAL_NUMBER_OF_BOTTLES, 0)
-  end
-
-  private
-  def self.create_song
-    (TOTAL_NUMBER_OF_BOTTLES).downto(0).map do |n|
-      if n > 0
-        verse(n)
-      else 
-        last_verse(n)
-      end
-    end.reverse
-  end
-
-  def self.last_verse(n)
-    "#{pluralize_bottle(n).capitalize}\s#{TEXT[6]}\s#{TEXT[1]},\s#{pluralize_bottle(n)}\s#{TEXT[6]}.\n#{TEXT[5]}\s#{pluralize_bottle(TOTAL_NUMBER_OF_BOTTLES)}\s#{TEXT[6]}\s#{TEXT[1]}.\n"
-  end
-
-  def self.verse(n)
-    "#{pluralize_bottle(n)}\s#{TEXT[6]}\s#{TEXT[1]},\s#{pluralize_bottle(n)}\s#{TEXT[6]}.\n#{TEXT[2]}\s#{pluralize_one(n)}\s#{TEXT[4]}\s#{pluralize_bottle(n-1)}\s#{TEXT[6]}\s#{TEXT[1]}.\n"
-  end
-
-  def self.pluralize_bottle(n)
     case n
-    when 0 then "#{TEXT[3]}\s#{TEXT[7]}#{TEXT[10]}"
-    when 1 then "#{n}\s#{TEXT[7]}"
-    else "#{n}\s#{TEXT[7]}#{TEXT[10]}"
+    when 0 then last_verse
+    else 
+      n_bottles_of_beer_on_the_wall(n) + ", " + n_bottles_of_beer(n) + take_one_down_and_pass_it_round(n) +n_bottles_of_beer_on_the_wall(n-1) + ".\n"
     end
   end
 
-  def self.pluralize_one(n)
-    n > 1 ? "#{TEXT[8]}" : "#{TEXT[9]}"
+  def bottle(n)
+    case n
+    when 0 then "no more bottles"
+    when 1 then "#{n} bottle"
+    else "#{n} bottles"
+    end
   end
 
-  TOTAL_NUMBER_OF_BOTTLES = 99
+  def it_or_one(n)
+    n == 1 ? "it" : "one"
+  end
 
-  TEXT = {
-    1 => "on the wall",
-    2 => "Take",
-    3 => "no more",
-    4 => "down and pass it around,",
-    5 => "Go to the store and buy some more,",
-    6 => "of beer",
-    7 => "bottle",
-    8 => "one",
-    9 => "it",
-    10 => "s"
-  }
+  def verses(upper, lower)
+    upper.downto(lower).map { |n| "#{verse(n)}\n" }.join
+  end
 
-  SONG = self.create_song
+  def sing 
+    verses(TOTAL_NBER_OF_BOTTLES, 0)
+  end
+
+  def last_verse
+    "No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n"
+  end
+
+  def n_bottles_of_beer_on_the_wall(n)
+    "#{bottle(n)} of beer on the wall"
+  end 
+
+  def n_bottles_of_beer(n)
+    "#{bottle(n)} of beer.\n"
+  end
+
+  def take_one_down_and_pass_it_round(n)
+    "Take #{it_or_one(n)} down and pass it around, "
+  end
+
+  TOTAL_NBER_OF_BOTTLES = 99
 
 end
