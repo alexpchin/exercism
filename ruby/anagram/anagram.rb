@@ -11,7 +11,11 @@ class Anagram
   end
 
   def is_anagram?(w)
-    word.chars.sort.join == w.downcase.chars.sort.join
+    sort_by_char(word) == sort_by_char(w.downcase)
+  end
+
+  def sort_by_char(w)
+    w.chars.sort.join
   end
 
   def is_same_word?(w)
