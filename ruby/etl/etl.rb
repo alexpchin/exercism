@@ -4,7 +4,7 @@ class ETL
     new_format = {}
     hash.values.each do |array| 
       array.each do |letter|
-        SCORES.values.map do |value|
+        SCORES.values.each do |value|
           new_format[letter.downcase] = SCORES.key(value) if value.match(/#{letter.downcase}/)
         end
       end
