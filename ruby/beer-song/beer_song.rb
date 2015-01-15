@@ -4,7 +4,7 @@ class BeerSong
     case n
     when 0 then last_verse
     else 
-      n_bottles_of_beer_on_the_wall(n) + ", " + n_bottles_of_beer(n) + take_one_down_and_pass_it_round(n) +n_bottles_of_beer_on_the_wall(n-1) + ".\n"
+      n_bottles_of_beer_on_the_wall(n) + ", " + n_bottles_of_beer(n) + take_one_down_and_pass_it_around(n) +n_bottles_of_beer_on_the_wall(n-1) + ".\n"
     end
   end
 
@@ -40,7 +40,7 @@ class BeerSong
     "#{bottle(n)} of beer.\n"
   end
 
-  def take_one_down_and_pass_it_round(n)
+  def take_one_down_and_pass_it_around(n)
     "Take #{it_or_one(n)} down and pass it around, "
   end
 
