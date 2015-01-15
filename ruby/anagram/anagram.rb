@@ -7,7 +7,7 @@ class Anagram
   end
 
   def match(array)
-    array.map { |w| w if is_anagram?(w) && !is_same_word?(w) }.compact
+    array.select { |w| w if is_anagram?(w) && !is_same_word?(w) }
   end
 
   private
