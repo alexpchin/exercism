@@ -8,14 +8,6 @@ class EmptyNode
   def insert(*)
     false
   end
-
-  # def include?(*)
-  #   false
-  # end
-
-  # def inspect
-  #   "{}"
-  # end
 end
 
 class Bst
@@ -34,37 +26,11 @@ class Bst
     when -1 then insert_right(v)
     end
   end
-  alias_method :<<, :insert
 
   def each
     left.each {|y| yield y } unless left.kind_of?(EmptyNode)
     yield data
     right.each {|y| yield y } unless right.kind_of?(EmptyNode)
-  end
-
-  # def include?(v)
-  #   case data <=> v
-  #   when 1 then left.include?(v)
-  #   when -1 then right.include?(v)
-  #   when 0 then true # the current node is equal to the data
-  #   end
-  # end
-
-  # def inspect
-  #   "{#{data}:#{left.inspect}|#{right.inspect}}"
-  # end
-
-  # def each
-  #   # yield self.to_a
-  #   case data <=> v
-  #   when 1 then left.include?(v)
-  #   when -1 then right.include?(v)
-  #   when 0 then true # the current node is equal to the data
-  #   end
-  # end
-
-  def to_a
-    left.to_a + [data] + right.to_a
   end
 
   private
