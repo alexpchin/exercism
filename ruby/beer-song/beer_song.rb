@@ -25,7 +25,7 @@ class BeerSong
   end
 
   def sing 
-    verses(TOTAL_NBER_OF_BOTTLES, 0)
+    verses(TOTAL_NUMBER_OF_BOTTLES, 0)
   end
 
   def last_verse
@@ -44,6 +44,6 @@ class BeerSong
     "Take #{it_or_one(n)} down and pass it around, "
   end
 
-  TOTAL_NBER_OF_BOTTLES = 99
+  TOTAL_NUMBER_OF_BOTTLES = 99
 
 end
