@@ -10,6 +10,7 @@ class Anagram
     array.map { |w| w if is_anagram?(w) && !is_same_word?(w) }.compact
   end
 
+  private
   def is_anagram?(w)
     sort_by_char(word) == sort_by_char(w.downcase)
   end
