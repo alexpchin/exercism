@@ -19,24 +19,17 @@ class Crypto
   end
 
   def ciphertext
-    # chunk_array.safely_transpose.map(&:join).join(" ")
-    # chunk_array.reduce(&:zip).map(&:flatten).join
-    # chunk_array.reduce(&:zip).map(&:flatten)
-    # plaintext_segments[-2] == plaintext_segments[-1]
-    if perfect_square?
-      chunk_array.transpose
-    else
-      # chunk_array.reduce(&:zip).map(&:flatten)
-      # chunk_array.map { |x| x.size }
-      # chunk_array.max_size
-      # chunk_array[0..-2].transpose + [chunk_array[-1]].transpose
-      array_with_nil_values
-      # chunk_array.reduce(&:zip).map(&:flatten)
-    end
+    chunk_array.reduce(&:zip).map(&:flatten).join
+    # if perfect_square?
+    #   chunk_array.transpose
+    # else
+    #   chunk_array.reduce(&:zip).map(&:flatten).join
+    #   # array_with_nil_values
+    # end
   end
 
   def normalize_ciphertext
-    ciphertext
+    ciphertext.scan(/.{1,#{size-1}}/).join(" ")
   end
 
   def max_size

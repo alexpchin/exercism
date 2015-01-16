@@ -59,19 +59,16 @@ class CryptoTest < MiniTest::Unit::TestCase
   end
 
   def test_normalized_ciphertext
-    skip
     crypto = Crypto.new('Vampires are people too!')
     assert_equal 'vrel aepe mset paoo irpo', crypto.normalize_ciphertext
   end
 
   def test_normalized_ciphertext_spills_into_short_segment
-    skip
     crypto = Crypto.new('Madness, and then illumination.')
     assert_equal 'msemo aanin dninn dlaet ltshu i', crypto.normalize_ciphertext
   end
 
   def test_another_normalized_ciphertext
-    skip
     crypto = Crypto.new(
       'If man was meant to stay on the ground god would have given us roots'
     )
@@ -80,14 +77,12 @@ class CryptoTest < MiniTest::Unit::TestCase
   end
 
   def test_normalized_ciphertext_with_punctuation
-    skip
     crypto = Crypto.new('Have a nice day. Feed the dog & chill out!')
     expected = 'hifei acedl veeol eddgo aatcu nyhht'
     assert_equal expected, crypto.normalize_ciphertext
   end
 
   def test_normalized_ciphertext_when_just_less_then_a_full_square
-    skip
     crypto = Crypto.new('I am')
     assert_equal 'im a', crypto.normalize_ciphertext
   end
