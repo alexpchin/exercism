@@ -1,106 +1,88 @@
 class Say
 
-  attr_accessor :number
+  LARGE_ENGLISH_NUMBERS = {
+    1_000_000_000 => "billion",
+    1_000_000     => "million",
+    1_000         => "thousand",
+    100           => "hundred",
+  }
 
-  def initialize number
+  ENGLISH_NUMBERS_UP_TO_100 = {
+    90  => "ninety",
+    80  => "eighty",
+    70  => "seventy",
+    60  => "sixty",
+    50  => "fifty",
+    40  => "forty",
+    30  => "thirty",
+    20  => "twenty",
+  }
+
+  ENGLISH_NUMBERS_UP_TO_20 = {
+    19  => "nineteen",
+    17  => "seventeen",
+    16  => "sixteen",
+    15  => "fifteen",
+    14  => "fourteen",
+    13  => "thirteen",
+    12  => "twelve",
+    11  => "eleven",
+    10  => "ten",
+    9   => "nine",
+    8   => "eight",
+    7   => "seven",
+    6   => "six",
+    5   => "five",
+    4   => "four",
+    3   => "three",
+    2   => "two",
+    1   => "one",
+    0   => "zero",
+  }
+
+  ACCEPTED_RANGE = 0...1000000000000
+
+  def initialize(number)
+    raise ArgumentError unless ACCEPTED_RANGE.include?(number)
     @number = number
   end
 
   def in_english
-    raise ArgumentError unless in_range?
-    in_a_word || in_many_words
+    number_to_words(@number)
   end
 
   private
-  def in_range?
-    number >= LOWER_BOUND && number < UPPER_BOUND
+
+  def number_to_words(number)
+    return number_to_words_up_to_20(number)  if number < 20
+    return number_to_words_up_to_100(number) if number < 100
+    number_to_words_general_case(number)
   end
 
-  def in_a_word
-    WORDS[number]
+  def number_to_words_up_to_20(number)
+    ENGLISH_NUMBERS_UP_TO_20[number]
   end
 
-  def in_many_words
-    exact_magnitude? ? multiple_of_magnitude_in_words : long_number_in_words
+  def number_to_words_up_to_100(number)
+    decompose_number_into_words(number, ENGLISH_NUMBERS_UP_TO_100, "-") do |occurences, word|
+      word
+    end
   end
 
-  def number_of_digits
-    number.to_s.length
+  def number_to_words_general_case(number)
+    decompose_number_into_words(number, LARGE_ENGLISH_NUMBERS, " ") do |occurences, word|
+      number_to_words(occurences) + " " + word
+    end
   end
 
-  def multiple_of_magnitude_in_words
-    [Say.new(number/magnitude).in_english, magnitude_word].join(' ')
+  def decompose_number_into_words(number, reference_numbers, glue, &word_builder)
+    words = []
+    reference_numbers.each do |value, word|
+      occurences, number = number.divmod(value)
+      words << word_builder.(occurences, word) if occurences > 0
+    end
+    words << number_to_words(number) if number > 0
+    words.join(glue)
   end
-
-  def long_number_in_words
-    magnitude_part_and_remainder.map(&:in_english).join(magnitude_separator)
-  end
-
-  def magnitude_part_and_remainder
-    quotient, remainder = number.divmod(magnitude)
-    [Say.new(magnitude * quotient), Say.new(remainder)]
-  end
-
-  def exact_magnitude?
-    number % magnitude == 0
-  end
-
-  def greater_than_1000?
-    number < 1_000_000_000
-  end
-
-  def magnitude_word
-    MAGNITUDE[magnitude]
-  end
- 
-  def magnitude
-    10 ** (number_of_digits - 1)
-  end
-
-  def magnitude_separator
-    # remainder(magnitude) < 10 && number < 100 ? '-' : ' '
-    number < 100 ? '-' : ' '
-  end
-
-  LOWER_BOUND = 0
-  UPPER_BOUND = 1_000_000_000_000
-
-  WORDS = {
-    0  => "zero",
-    1  => "one",
-    2  => "two",
-    3  => "three",
-    4  => "four",
-    5  => "five",
-    6  => "six",
-    7  => "seven",
-    8  => "eight",
-    9  => "nine",
-    10 => "ten",
-    11 => "eleven",
-    12 => "twelve",
-    13 => "thirteen",
-    14 => "fourteen",
-    15 => "fifteen",
-    16 => "sixteen",
-    17 => "seventeen",
-    18 => "eighteen",
-    19 => "nineteen",
-    20 => "twenty",
-    30 => "thirty",
-    40 => "forty",
-    50 => "fifty",
-    60 => "sixty",
-    70 => "seventy",
-    80 => "eighty",
-    90 => "ninety"
-  }
-
-  MAGNITUDE = {
-    100 => "hundred",
-    1_000 => "thousand",
-    1_000_000 => "million",
-    1_000_000_000 => "billion"
-  }
 
 end
