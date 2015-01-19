@@ -6,17 +6,9 @@ class Say
     @number = number
   end
 
-  def method_missing(name, *args, &block)
-    number.send(name, *args, &block)
-  end
-
   def in_english
     raise ArgumentError unless in_range?
     in_a_word || in_many_words
-  end
-
-  def number_of_digits
-    number.to_s.length
   end
 
   private
@@ -30,6 +22,10 @@ class Say
 
   def in_many_words
     exact_magnitude? ? multiple_of_magnitude_in_words : long_number_in_words
+  end
+
+  def number_of_digits
+    number.to_s.length
   end
 
   def multiple_of_magnitude_in_words
@@ -49,6 +45,10 @@ class Say
     number % magnitude == 0
   end
 
+  def greater_than_1000?
+    number < 1_000_000_000
+  end
+
   def magnitude_word
     MAGNITUDE[magnitude]
   end
@@ -58,7 +58,8 @@ class Say
   end
 
   def magnitude_separator
-    remainder(magnitude) < 10 && number < 100 ? '-' : ' '
+    # remainder(magnitude) < 10 && number < 100 ? '-' : ' '
+    number < 100 ? '-' : ' '
   end
 
   LOWER_BOUND = 0
