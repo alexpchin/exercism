@@ -1,6 +1,6 @@
 class Clock
 
-  MINUTES_IN_HOUR  = 60.to_f
+  MINUTES_IN_HOUR  = 60
   HOURS_IN_DAY     = 24
   
   attr_accessor :minutes
