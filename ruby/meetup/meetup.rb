@@ -36,11 +36,11 @@ class Meetup
   end
 
   def teenth(weekdays)
-    weekdays.detect.with_index { |d,i| !d.nil? && TEENTH_RANGE.include?(i+1) }
+    weekdays.detect.with_index { |d,i| d && TEENTH_RANGE.include?(i+1) }
   end
 
   def last(weekdays)
-    weekdays.reverse.detect { |d| !d.nil? }
+    weekdays.reverse.detect { |d| d }
   end
 
 end
