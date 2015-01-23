@@ -14,17 +14,17 @@ class Matrix
     count = @numbers.count
     (2).upto(count/2).each do |a|
       b = count/a
-      return block.call(a,b) if is_matrix?(a,b)
+      block.call(a,b) if is_matrix?(a,b)
     end
   end
 
   def is_matrix?(a, b)
-    a > b && (a * b) == @numbers.count
+    a >= b && (a * b) == @numbers.count
   end
 
   def matrix_builder
     find_factors do |a,b|
-      @numbers.each_slice(a).map { |row| row }
+      return @numbers.each_slice(a).to_a
     end
   end
 
@@ -33,7 +33,9 @@ class Matrix
   end
 
   def column_builder
-    @matrix.map.with_index { |row,i| @matrix.map { |row| row[i] } }
+    p @matrix
+    @matrix.transpose
+    # @matrix.map.with_index { |row,i| @matrix.map { |row| row[i] } }
     # @numbers.each_slice(@num_row).map { |row| row }
   end
 
