@@ -8,26 +8,22 @@ class Matrix
   end
 
   def saddle_points
-    coordinates.select do |coord|
-      is_saddle_point? coord
+    coordinates.select do |row, col|
+      max_in_row?(row,col) && min_in_col?(row,col)
     end
   end
 
   private
   def coordinates
-    coordinates = []
-    (0...(rows.count)).each do |row| 
-      (0...(columns.count)).map do |col|
-        coordinates << [row,col]
-      end
-    end
-    coordinates
+    (0...rows.size).to_a.product (0...columns.size).to_a
   end
 
-  def is_saddle_point?(coord)
-    value = rows[coord[0]][coord[1]]
-    rows[coord[0]].all? { |n| value >= n } && 
-    columns[coord[1]].all? { |n| value <= n }
+  def max_in_row?(row,col)
+    rows[row][col] >= rows[row].max
+  end
+
+  def min_in_col?(row,col)
+    rows[row][col] <= columns[col].min
   end
 
   def parse(string)
