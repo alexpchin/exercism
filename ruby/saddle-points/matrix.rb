@@ -5,8 +5,6 @@ class Matrix
   def initialize(string)
     @rows    = parse(string)
     @columns = @rows.transpose
-    @coordinates   = []
-    @saddle_points = []
   end
 
   def saddle_points
