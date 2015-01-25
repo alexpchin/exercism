@@ -3,35 +3,37 @@ class Matrix
   attr_reader :rows, :columns
 
   def initialize(string)
-    @rows    = string.lines.map { |row| row.split.map(&:to_i) }
+    @rows    = parse(string)
     @columns = @rows.transpose
+    @coordinates   = []
     @saddle_points = []
   end
 
-  def parse string
-    string.lines.map do |row|
-      row.split.map &:to_i
+  def saddle_points
+    coordinates.select do |coord|
+      is_saddle_point? coord
     end
   end
 
-  def saddle_points
-    p rows
-    p saddle_point_values
-    saddle_point_values.map  { |s| @rows.index(s) }
+  private
+  def coordinates
+    coordinates = []
+    (0...(rows.count)).each do |row| 
+      (0...(columns.count)).map do |col|
+        coordinates << [row,col]
+      end
+    end
+    coordinates
   end
 
-  def max_in_row
-    @rows.map(&:max)
+  def is_saddle_point?(coord)
+    value = rows[coord[0]][coord[1]]
+    rows[coord[0]].all? { |n| value >= n } && 
+    columns[coord[1]].all? { |n| value <= n }
   end
 
-  def min_in_column
-    @columns.map(&:min)
-  end
-
-  def saddle_point_values
-    p "max: #{max_in_row}"
-    p "min: #{min_in_column}"
-    max_in_row & min_in_column
+  def parse(string)
+    string.lines.map { |row| row.split.map(&:to_i) }
   end
 
 end
