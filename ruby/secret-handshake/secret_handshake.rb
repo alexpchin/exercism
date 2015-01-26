@@ -1,26 +1,19 @@
 class SecretHandshake
 
+  attr_reader :binary
+
   def initialize(decimal)
-    @handshake = []
-    @decimal   = decimal
-    @binary    = decimal.to_s(2) if valid?(decimal)
+    @binary = decimal.to_i.to_s(2)
   end
 
   def commands
-    return @handshake if !valid?(@decimal)
-
-    @binary.chars.reverse.each.with_index do |char, index|
-      if char == "1" && index < 4
-        @handshake << HANDSHAKE.values[index]
+    binary.reverse.each_char.with_index.with_object([]) do |(char, index), handshake|
+      if index == 4
+        handshake.reverse!
+      else 
+        handshake << COMMAND_LIST[index] if char == "1"
       end
     end
-    @handshake.reverse! if @binary.chars.length > 3
-    @handshake
-  end
-
-  private
-  def valid?(decimal)
-    decimal != decimal.to_s
   end
 
   HANDSHAKE = {
@@ -29,5 +22,7 @@ class SecretHandshake
     "100" => "close your eyes",
     "1000" => "jump"
   }
+
+  COMMAND_LIST = HANDSHAKE.values
 
 end
