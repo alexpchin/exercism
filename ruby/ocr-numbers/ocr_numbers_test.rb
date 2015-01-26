@@ -13,7 +13,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_one
-    skip
     text = <<-NUMBER.chomp
 
   |
@@ -24,7 +23,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_two
-    skip
     text = <<-NUMBER.chomp
  _
  _|
@@ -35,7 +33,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_three
-    skip
     text = <<-NUMBER.chomp
  _
  _|
@@ -46,7 +43,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_four
-    skip
     text = <<-NUMBER.chomp
 
 |_|
@@ -57,7 +53,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_five
-    skip
     text = <<-NUMBER.chomp
  _
 |_
@@ -68,7 +63,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_six
-    skip
     text = <<-NUMBER.chomp
  _
 |_
@@ -79,7 +73,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_seven
-    skip
     text = <<-NUMBER.chomp
  _
   |
@@ -90,7 +83,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_eight
-    skip
     text = <<-NUMBER.chomp
  _
 |_|
@@ -101,7 +93,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_recognize_nine
-    skip
     text = <<-NUMBER.chomp
  _
 |_|
@@ -112,7 +103,6 @@ class OCRTest < MiniTest::Unit::TestCase
   end
 
   def test_identify_garble
-    skip
     text = <<-NUMBER.chomp
 
 | |
