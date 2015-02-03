@@ -14,6 +14,7 @@ class OCR
 
   NUMBERS = {
     :" _\n| |\n|_|\n" => "0",
+    :" _\n| |\n|_|\n" => "0",
     :"\n  |\n  |\n"   => "1",
     :" _\n _|\n|_\n"  => "2",
     :" _\n _|\n _|\n" => "3",
@@ -24,8 +25,21 @@ class OCR
     :" _\n|_|\n|_|\n" => "8",
     :" _\n|_|\n _|\n" => "9"
   }
-
   NUMBERS.default = "?"
+
+  FULL_NUMBERS = {
+    :" _ \n| |\n|_|\n" => "0",
+    :"   \n  |\n  |\n" => "1",
+    :" _ \n _|\n|_ \n" => "2",
+    :" _ \n _|\n _|\n" => "3",
+    :"   \n|_|\n  |\n" => "4",
+    :" _ \n|_ \n _|\n" => "5",
+    :" _ \n|_ \n|_|\n" => "6",
+    :" _ \n  |\n  |\n" => "7",
+    :" _ \n|_|\n|_|\n" => "8",
+    :" _ \n|_|\n _|\n" => "9"
+  }
+  FULL_NUMBERS.default = "?"  
 
   MAX_NUMBER_LENGTH = NUMBERS.keys.max.length
 
@@ -45,9 +59,8 @@ class OCR
   end
 
   def convert_multiple_numbers
-    # p digits
     digits.map do |digit|
-      NUMBERS[digit.to_sym]
+      NUMBERS[digit.to_sym] == NUMBERS.default ? FULL_NUMBERS[digit.to_sym] : NUMBERS[digit.to_sym]
     end.join
   end
 
@@ -63,8 +76,8 @@ class OCR
 
   def digits
     three_characters.safe_transpose.map do |character|
-      character.join("\n") << "\n"
-    end.map { |digit| digit.gsub("   ", "") }
+      character.compact.join("\n") << "\n"
+    end
   end
 
   def one_number?
