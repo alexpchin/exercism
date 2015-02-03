@@ -27,48 +27,50 @@ class OCR
 
   NUMBERS.default = "?"
 
+  MAX_NUMBER_LENGTH = NUMBERS.keys.max.length
+
   attr_reader :text
 
   def initialize(text)
-    # @text = clean(text)
     @text =  text
   end
 
   def convert
-    NUMBERS[text.to_sym]
-
-    # digits.map do |digit|
-    #   NUMBERS[digit.to_sym]
-    # end.join
+    one_number? ? convert_one_number : convert_multiple_numbers
   end
 
   private
+  def convert_one_number
+    NUMBERS[text.to_sym]
+  end
+
+  def convert_multiple_numbers
+    # p digits
+    digits.map do |digit|
+      NUMBERS[digit.to_sym]
+    end.join
+  end
 
   def lines
     text.split("\n")
   end
 
   def three_characters
-    # lines.map do |line|
-    #   # line.scan(/.../) 
-    #   # line.scan(/.{3,}/)
-    # end
-    lines
+    lines.map do |line|
+      line.scan(/...|../)
+    end
   end
 
   def digits
     three_characters.safe_transpose.map do |character|
-      character.join("\n")
-    end
+      character.join("\n") << "\n"
+    end.map { |digit| digit.gsub("   ", "") }
   end
 
-  def clean(text)
-    # if text.length > 15
-    #   text.split(/\n         \n/).join("   \n , \n   \n   ")
-    # else
-    #   text
-    # end
-    text
+  def one_number?
+    text.length <= MAX_NUMBER_LENGTH
   end
 
 end
+
+# line.scan(/.{3,}/)
