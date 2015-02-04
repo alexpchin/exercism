@@ -28,6 +28,7 @@ class OCR
   NUMBERS.default = "?"
 
   FULL_NUMBERS = {
+    :"   " => ",",
     :" _ \n| |\n|_|\n" => "0",
     :"   \n  |\n  |\n" => "1",
     :" _ \n _|\n|_ \n" => "2",
@@ -85,5 +86,3 @@ class OCR
   end
 
 end
-
-# line.scan(/.{3,}/)
