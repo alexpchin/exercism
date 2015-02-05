@@ -18,14 +18,12 @@ class LinkedListTest < MiniTest::Unit::TestCase
   end
 
   def test_to_a
-    skip
     assert_equal [], Element.to_a(nil)
     assert_equal [1], Element.to_a(@one)
     assert_equal [2, 1], Element.to_a(@two)
   end
 
   def test_reverse
-    skip
     # one_r and @one need not be the same object
     one_r = @one.reverse
     assert_equal 1, one_r.datum
@@ -41,7 +39,6 @@ class LinkedListTest < MiniTest::Unit::TestCase
 
   # rubocop:disable  Metrics/AbcSize
   def test_from_a # rubocop:disable Metrics/MethodLength
-    skip
     assert_nil Element.from_a([])
 
     one_a = Element.from_a([1])
@@ -58,7 +55,6 @@ class LinkedListTest < MiniTest::Unit::TestCase
   end
 
   def test_roundtrip
-    skip
     assert_equal [1], Element.from_a([1]).to_a
     assert_equal [2, 1], Element.from_a([2, 1]).to_a
     # rubocop:disable Lint/ParenthesesAsGroupedExpression
