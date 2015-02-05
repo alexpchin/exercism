@@ -9,8 +9,8 @@ class Element
     @next  = _next
   end
 
+  # Must be @next as next is a reserved word in Ruby
   def reverse
-    # Must be @next as next is a reserved word in Ruby
     if @next
       Element.new(@next.datum, Element.new(datum, @next.reverse))
     else
@@ -25,14 +25,16 @@ class Element
 
   def self.to_a(instance)
     if instance
-      # Simple catch for if next is nil
+      # Simple solution for if next is nil
       [instance.datum] + self.to_a(instance.next)
     else
       []
-    end 
+    end
   end
 
   # Ensure range is an array
+  # Reverse the array
+  # next_element, datum = sum, value
   def self.from_a(array_or_range)
     Array(array_or_range).reverse.reduce(nil) do |next_element, datum|
       Element.new(datum, next_element)
