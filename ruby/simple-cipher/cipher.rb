@@ -25,6 +25,7 @@ class Cipher
     recode(message) { |cipher, shift| cipher - shift }
   end
 
+  # This should be able to be re-written using .tr...
   def recode message
     message.chars.zip(key.chars.cycle).map do |message_char, shift_char|
       message_position = to_position(message_char)

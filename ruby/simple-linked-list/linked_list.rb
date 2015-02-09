@@ -1,18 +1,14 @@
-# Reference: 
-# 1. http://matt.weppler.me/2013/08/14/implementing-a-linked-list-in-ruby.html
-
 class Element
-  attr_reader :datum, :next
+  attr_reader :datum, :_next
+  alias_method :next, :_next
 
   def initialize(datum, _next)
-    @datum = datum
-    @next  = _next
+    @datum, @_next = datum, _next
   end
 
-  # Must be @next as next is a reserved word in Ruby
   def reverse
-    if @next
-      Element.new(@next.datum, Element.new(datum, @next.reverse))
+    if _next
+      Element.new(_next.datum, Element.new(datum, _next.reverse))
     else
       self
     end
