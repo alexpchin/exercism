@@ -16,19 +16,13 @@ class WordProblem
     raise ArgumentError unless valid?
   end
 
-  def valid?
-    # correct_question? && !complex?
-    # correct_question?
-    !complex?
-  end
-
   def answer
     recursive_answer(convert_operators, 0, 2, nil)
   end
 
   private
   def recursive_answer(array, x, y, answer)
-    return answer if y >= array.length+1
+    return answer if y >= array.length
 
     calc     = array[(x..y)]
     answer ||= calc[0]
@@ -45,8 +39,8 @@ class WordProblem
     to_a.map { |x| OPERATORS.key(x) || x.to_i }
   end
 
-  def complex?
-    question.scan(/#{OPERATOR_REGEX}/).empty?
+  def valid?
+    !question.scan(/#{OPERATOR_REGEX}/).empty?
   end
 
 end
