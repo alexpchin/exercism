@@ -1,3 +1,8 @@
+# Plain:      ABCDEFGHIJKLMNOPQRSTUVWXYZ
+# Cipher:     XYZABCDEFGHIJKLMNOPQRSTUVW
+# Plaintext:  THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+# Ciphertext: QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD
+
 class Cipher 
   ALPHABET = ('a'..'z').to_a
 
@@ -46,6 +51,6 @@ class Cipher
 
   def create_key
     100.times.map { ALPHABET.sample }.join
-  end
+  end 
 
 end
