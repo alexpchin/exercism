@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'cipher'
 
-class RandomKeyCipherTest < MiniTest::Unit::TestCase
+class RandomKeyCipherTest < MiniTest::Test
   def setup
     @cipher = Cipher.new
   end
