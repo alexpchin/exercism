@@ -7,22 +7,23 @@ class Garden
     violets: "V"
   }
 
-  CHILDREN = ["alice", "bob", "charlie", "david", "eve", "fred", "ginny", "harriet", "ileana", "joseph", "kincaid", "larry"]
+  DEFAULT_STUDENTS = ["alice", "bob", "charlie", "david", "eve", "fred", "ginny", "harriet", "ileana", "joseph", "kincaid", "larry"]
 
-  def initialize(diagram, students=CHILDREN)
+  CUPS_PER_STUDENT = 2
+
+  def initialize(diagram, students=DEFAULT_STUDENTS)
     @diagram  = diagram.split(/\n/)
     @students = students.map(&:downcase).sort
-    student_methods(@diagram, @students)
+    create_student_methods(@diagram, @students)
   end
 
-  def student_methods(diagram, students)
+  private
+  def create_student_methods(diagram, students)
     (class << self; self; end).class_eval do
-      students.each do |student|
+      students.each_with_index do |student, i|
         define_method student do 
-          i = students.index(student)
           diagram.map do |row|
-            x = row.chars[(i*2..i*2+1)]
-            x.map do |plant|
+            row.chars[(i*CUPS_PER_STUDENT..i*CUPS_PER_STUDENT+1)].map do |plant|
               PLANTS.key(plant)
             end
           end.flatten
