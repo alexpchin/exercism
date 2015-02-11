@@ -1,45 +1,26 @@
 class Allergies
 
-  ALLERGY_SCORES = {
-    cats: 128,
-    pollen: 64,
-    chocolate: 32,
-    tomatoes: 16,
-    strawberries: 8,
-    shellfish: 4,
-    peanuts: 2,
-    eggs: 1
+  SCORES = {
+    'eggs'         => 1,
+    'peanuts'      => 1<<1,
+    'shellfish'    => 1<<2,
+    'strawberries' => 1<<3,
+    'tomatoes'     => 1<<4,
+    'chocolate'    => 1<<5,
+    'pollen'       => 1<<6,
+    'cats'         => 1<<7,
   }
-
-  attr_reader :score
 
   def initialize(score)
     @score = score
   end
 
-  def allergic_to?(string)
-    return false if score.zero? 
-    return score if exact_allergy?(string)
-    list.include?(string)
+  def allergic_to?(item)
+    @score & SCORES[item] != 0
   end
 
   def list
-    sum = score
-    ALLERGY_SCORES.map do |k,v|
-      q, r = sum.divmod(v)
-      sum -= v if q >= 1
-      p sum
-      k.to_s if q >= 1
-    end.compact.reverse
-  end
-
-  private
-  def not_allergic?
-    score.zero?
-  end
-
-  def exact_allergy?(string)
-    ALLERGY_SCORES.key(score) == string
+    SCORES.keys.select { |item| allergic_to?(item) }
   end
 
 end
