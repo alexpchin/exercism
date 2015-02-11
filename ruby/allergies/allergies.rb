@@ -1,5 +1,6 @@
 class Allergies
 
+  # Using Binary Left Shift Operator
   SCORES = {
     'eggs'         => 1,
     'peanuts'      => 1<<1,
