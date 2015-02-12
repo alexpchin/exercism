@@ -13,12 +13,9 @@ class Triplet
       (a+1).upto(options[:max_factor]).each do |b|
         (b+1).upto(options[:max_factor]).each do |c|
           triangle = self.new(a,b,c)
-          # !options[:sum] ||
-          if options[:sum]
-            triangles << triangle if triangle.pythagorean? && triangle.sum == options[:sum]
-          else
-            triangles << triangle if triangle.pythagorean?
-          end
+          sum = triangle.sum == options[:sum]
+          sum = true if options[:sum].nil?
+          triangles << triangle if triangle.pythagorean? && sum
         end
       end
     end
