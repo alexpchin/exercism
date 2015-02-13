@@ -1,63 +1,41 @@
 class CircularBuffer
 
-  class Error < StandardError        ; end
-  class BufferEmptyException < Error ; end
-  class BufferFullException  < Error ; end
+  class BufferEmptyException < Exception; end
+  class BufferFullException  < Exception; end
 
-  def initialize(buffer_size)
-    @buffer = [nil] * buffer_size
-    @head   = 0
-    @count  = 0
+  attr_accessor :buffer
+  attr_reader :size
+
+  def initialize(size)
+    @size = size
+    @buffer = []
   end
 
   def clear
-    @count = 0
+    buffer.clear
   end
 
   def read
-    raise BufferEmptyException if empty?
-    data = @buffer[@head]
-    advance_head!
-    @count -= 1
-    data
+    raise BufferEmptyException if buffer.empty?
+    buffer.shift
   end
 
-  def write(data)
-    return if data.nil?
+  def write(info)
     raise BufferFullException if full?
-    @buffer[tail] = data
-    @count += 1
+    return self if info.nil?
+    buffer << info
+    self
   end
 
-  def write!(data)
-    @buffer[@head] = data
-    advance_head!
-  end
-
-  private
-
-  def empty?
-    @count.zero?
+  def write!(info)
+    return self if info.nil?
+    buffer.shift if full?
+    buffer << info
+    self
   end
 
   def full?
-    @count == size
-  end
-
-  def size
-    @buffer.size
-  end
-
-  def advance_head!
-    @head = advance(@head)
-  end
-
-  def tail
-    advance(@head, @count)
-  end
-
-  def advance(pointer, n=1)
-    (pointer + n) % size
+    buffer.size >= size
   end
 
 end
