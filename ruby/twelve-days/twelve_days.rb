@@ -1,39 +1,6 @@
 class TwelveDaysSong
 
-  def initiliaze()
-  end
-
-  def verse(n)
-    song = OPENING[0] + NUMBERS_TO_WORDS[(n).to_s]+ OPENING[1]
-    song << (n-1).downto(0).map do |index|
-      VERSES[index] 
-    end.join(", ")
-    song.gsub!(" and", "") if n == 1
-    song
-  end
-
-  def verses(start, finish)
-    start.upto(finish).map { |n| verse(n) }.join("\n") << "\n"
-  end
-
-  def sing
-    verses(1, 12)
-  end
-
-  NUMBERS_TO_WORDS = {
-    "1" => "first",
-    "2" => "second",
-    "3" => "third",
-    "4" => "fourth",
-    "5" => "fifth",
-    "6" => "sixth",
-    "7" => "seventh",
-    "8" => "eighth",
-    "9" => "ninth",
-    "10" => "tenth",
-    "11" => "eleventh",
-    "12" => "twelfth"
-  }
+  NUMBERS_TO_WORDS = %w(first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth)
 
   OPENING = ["On the "," day of Christmas my true love gave to me, "]
 
@@ -51,5 +18,33 @@ class TwelveDaysSong
     "eleven Pipers Piping",
     "twelve Drummers Drumming",
   ]
+
+  def verse(n)
+    song = opening_phrase(n)
+    song << (n-1).downto(0).map do |index|
+      VERSES[index] 
+    end.join(", ")
+    remove_and_in_first_verse(song, n)
+  end
+
+  def verses(start, finish)
+    start.upto(finish).map do |n| 
+      verse(n) 
+    end.join("\n") << "\n"
+  end
+
+  def sing
+    verses(1, 12)
+  end
+
+  private
+  def opening_phrase(n)
+    OPENING[0] + NUMBERS_TO_WORDS[n-1] + OPENING[1]
+  end
+
+  def remove_and_in_first_verse(song, n)
+    song.gsub!(" and", "") if n == 1
+    song
+  end
   
 end
