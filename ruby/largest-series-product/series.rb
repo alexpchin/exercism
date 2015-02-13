@@ -3,15 +3,12 @@ class Series
   attr_reader :digits
 
   def initialize(string)
-    @digits = string.scan(/\d/).map(&:to_i)
+    @digits = string.each_char.map(&:to_i)
   end
 
+  # Iterates the given block for each array of consecutive n elements.
   def slices(n)
-    digits[0..-n].map.with_index do |d,i|
-      (i..i+n-1).map do |digit| 
-        digits[digit]
-      end
-    end
+    digits.each_cons(n).to_a
   end
 
   def largest_product(n)
@@ -22,9 +19,7 @@ class Series
   private
   def sum_slices(n)
     return 1 if digits.size == 0
-    slices(n).map do |array| 
-      array.reduce(:*) 
-    end.sort.last
+    slices(n).map { |slice| slice.reduce(:*) } .max
   end
 
 end
