@@ -8,7 +8,7 @@ class BinarySearch
   end
 
   def search_for(key)
-    raise RuntimeError unless list.include?(key)
+    raise RuntimeError if list.empty?
 
     case key <=> list[middle]
     when  0 then middle
