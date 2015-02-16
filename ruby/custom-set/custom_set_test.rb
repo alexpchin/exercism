@@ -7,7 +7,6 @@ class CustomSetTest < MiniTest::Unit::TestCase
   end
 
   def test_no_duplicates
-    skip
     assert_equal CustomSet.new([1, 1]), CustomSet.new([1])
   end
 

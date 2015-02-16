@@ -3,7 +3,7 @@ class CustomSet
   attr_accessor :set
 
   def initialize(array=[])
-    @set = array.sort
+    @set = array.to_a.uniq.sort
     self
   end
 
