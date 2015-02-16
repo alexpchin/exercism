@@ -35,22 +35,32 @@ class CustomSet
     self.class.new(self.set & custom_set_instance.set)
   end
 
+  def member?(n)
+    self.set.map(&:to_s).include?(n.to_s)
+  end
+
   def put(n)
     self.set << n if !self.set.map(&:to_s).include?(n.to_s)
     self.set.sort!
     self
   end
 
-  # def member?
-  # end
+  def size
+    self.set.uniq.size
+  end
 
-  # def size
-  # end
+  def subset?(custom_set_instance)
+    (custom_set_instance.set - self.set).empty?
+  end
 
-  # def subset?
-  # end
+  def to_a
+    self.set.uniq
+  end
 
-  # def union
-  # end
+  def union(custom_set_instance)
+    self.set += custom_set_instance.set
+    self.set.sort!
+    self
+  end
 
 end
