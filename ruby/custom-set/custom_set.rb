@@ -46,7 +46,7 @@ class CustomSet
   end
 
   def size
-    self.set.uniq.size
+    self.set.size
   end
 
   def subset?(custom_set_instance)
@@ -54,7 +54,7 @@ class CustomSet
   end
 
   def to_a
-    self.set.uniq
+    self.set
   end
 
   def union(custom_set_instance)
