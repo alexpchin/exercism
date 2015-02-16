@@ -7,23 +7,22 @@ class Triangle
   end
 
   def rows
-    (0..num_rows-1).to_a.map do |row|
-      triangle_builder(row)
+    num_rows.times.reduce([]) do |triangle, _|
+      triangle << build_row(triangle[-1])
     end
   end
 
   private
-  def triangle_builder(num_rows)
-    return [1] if num_rows == 0
+  def build_row(previous_row)
+    previous_row ? next_row(previous_row) : first_row
+  end
 
-    previous = triangle_builder(num_rows-1)    
-    middle_array = []
-    
-    (previous.length-1).times do |i|
-      middle_array << (previous[i] + previous[i+1])
-    end
-    
-    [1, middle_array, 1].flatten
+  def first_row
+    [1]
+  end
+
+  def next_row(previous_row)
+    [1] + previous_row.each_cons(2).map { |a, b| a + b } + [1]
   end
 
 end
