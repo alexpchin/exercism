@@ -17,13 +17,13 @@ class Triangle
     return [1] if num_rows == 0
 
     previous = triangle_builder(num_rows-1)    
-    ret = []
+    middle_array = []
     
-    (previous.length - 1).times do |i|
-      ret.push (previous[i] + previous[i + 1])
+    (previous.length-1).times do |i|
+      middle_array << (previous[i] + previous[i+1])
     end
     
-    return [1, ret, 1].flatten
+    [1, middle_array, 1].flatten
   end
 
 end
