@@ -23,7 +23,8 @@ class BinarySearch
 
   private
   def top_search_for(key)
-    self.class.new(list[(middle+1)..-1]).search_for(key) + (middle+1)
+    gt_middle = middle+1
+    self.class.new(list[gt_middle ..-1]).search_for(key) + gt_middle
   end
 
   def bottom_search_for(key)
