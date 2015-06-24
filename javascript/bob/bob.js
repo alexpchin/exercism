@@ -1,21 +1,30 @@
-// Shorter solution
+// Alternative solution
 
-(function () {
-  'use strict';
-  var bob = function () {
-    var hey = function (what) {
-      if (/^\s*$/.test(what)) {
-        return "Fine. Be that way!";
-      }
-      if (/[A-Z]/.test(what) && what.toUpperCase() === what) {
-        return "Woah, chill out!";
-      }
-      if (/\?$/.test(what)) {
-        return "Sure.";
-      }
-      return "Whatever.";
-    };
-    return { hey: hey };
-  };
-  module.exports = bob;
-}());
+var Bob = function() {
+
+  this.hey = function(input) {
+    if (isSilent(input)) {
+      return 'Fine. Be that way!';
+    } else if (isShouting(input)) {
+      return 'Whoa, chill out!';
+    } else if (isQuestion(input)) {
+      return 'Sure.';
+    } else {
+      return 'Whatever.';
+    }
+  }
+
+  function isSilent(input) {
+    return /^\s*$/.test(input);
+  }
+
+  function isQuestion(input) {
+    return /\?$/.test(input);
+  }
+
+  function isShouting(input) {
+    return input === input.toUpperCase() && /[A-Z]/.test(input);
+  }
+};
+
+module.exports = Bob;
