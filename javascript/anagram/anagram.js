@@ -1,8 +1,10 @@
-function Anagram(input) {
+function Anagram(word) {
 
-  this.input = arguments;
+  this.input = word;
 
-  this.matches = function(arrayOfTestWords) {
+  function matches(word) {
+    arrayOfTestWords = typeof word === "string" ? [].slice.apply(arguments) : word;
+
     var matches = [];
     for (var i = 0; testWord = arrayOfTestWords[i++];){
       if (isAnagram(testWord) && !isSameWord(testWord)) {
