@@ -1,45 +1,31 @@
-var Bob = function() {};
+// Prototype solution
 
-Bob.prototype.responses = {
-  nothing: "Fine. Be that way!",
-  yell: "Whoa, chill out!",
-  question: "Sure.",
-  other: "Whatever."
-}
+var isSilent = function(input){
+ return (input.length<1);
+};
+
+var isShouting = function(input) {
+ return input.toUpperCase() === input && input.match(/[a-zA-Z]/);
+};
+
+var isQuestion = function(input){
+ return !isSilent(input) ? input.charAt(input.length-1)==='?' : false;
+};
+
+var Bob = module.exports = function() {};
 
 Bob.prototype.hey = function(input) {
-  this.input = input.replace(/[0-9\t ]/, '')
-  if (this.nothing()) {
-    return this.responses.nothing;
-  } else if (this.yell()) {
-    return this.responses.yell;
-  } else if (this.question()) {
-    return this.responses.question;
-  } else {
-    return this.responses.other; 
-  }
-}
+ input = (typeof input === 'string' ? input.trim() : '');
 
-Bob.prototype.nothing = function() {
-  return this.input === null || this.input === "" || this.input .trim() == 0;
-}
+ if(isSilent(input)){
+   return 'Fine. Be that way!';
+ }
+ if (isShouting(input)){
+   return 'Whoa, chill out!';
+ }
+ if (isQuestion(input)){
+   return 'Sure.';
+ }
+ return 'Whatever.';
 
-Bob.prototype.yell = function() {
-  var letters = this.letters();
-  if (letters) {
-    return letters == letters.toUpperCase();
-  }
-}
-
-Bob.prototype.question = function() {
-  return this.input.slice(-1) == "?";
-}
-
-Bob.prototype.letters = function() {
-  var letters = this.input.match(/[a-zA-ZäöüÄÖÜß]+/);
-  if (letters != null) {
-    return letters[0];
-  }
-}
-
-module.exports = Bob;
+};
